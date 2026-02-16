@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="login-card">
+        <h2>Login</h2>
+
+        <form (ngSubmit)="onLogin()">
+          <div class="input-group">
+            <input
+              type="text"
+              name="userName"
+              [(ngModel)]="loginObj.userName"
+              required
+              autocomplete="username"
+            />
+            <label>Username</label>
+          </div>
+
+          <div class="input-group">
+            <input
+              type="password"
+              name="password"
+              [(ngModel)]="loginObj.password"
+              required
+              autocomplete="current-password"
+            />
+            <label>Password</label>
+          </div>
+
+          <button type="submit" class="login-btn">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
