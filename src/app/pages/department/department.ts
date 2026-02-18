@@ -1,8 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { DepartmentModel } from '../../../models/Department.model';
-import { Master } from '../../../services/master';
+import { Master } from '../../../services/department';
 
 @Component({
   selector: 'app-department',
@@ -13,27 +13,36 @@ import { Master } from '../../../services/master';
 })
 export class Department implements OnInit {
   newDeptObj: DepartmentModel = new DepartmentModel();
-  deptList: DepartmentModel[] = [];
+  deptList = signal<DepartmentModel[]>([]);
   editId: number | null = null;
 
-  masterservice = inject(Master);
+  private masterService = inject(Master);
 
   ngOnInit(): void {
     this.getAllDepartments();
   }
 
+  getAllDepartments() {
+    this.masterService.getAllDepartments().subscribe({
+      next: (result: DepartmentModel[]) => {
+        this.deptList.set(result);
+      },
+      error: () => alert('Failed to load departments'),
+    });
+  }
+
   onSubDeptForm() {
-    if (this.editId) {
-      this.masterservice.updateDepartment(this.editId, this.newDeptObj).subscribe({
+    if (this.editId !== null) {
+      this.masterService.updateDepartment(this.editId, this.newDeptObj).subscribe({
         next: () => {
-          alert('Department added successfully');
+          alert('Department updated successfully');
           this.resetForm();
           this.getAllDepartments();
         },
         error: () => alert('Update failed'),
       });
     } else {
-      this.masterservice.addDepartment(this.newDeptObj).subscribe({
+      this.masterService.addDepartment(this.newDeptObj).subscribe({
         next: () => {
           alert('Department added successfully');
           this.resetForm();
@@ -44,14 +53,6 @@ export class Department implements OnInit {
     }
   }
 
-  getAllDepartments() {
-    this.masterservice.getAllDepartments().subscribe({
-      next: (result: any) => {
-        this.deptList = result;
-      },
-    });
-  }
-
   onEdit(dept: DepartmentModel) {
     this.editId = dept.id;
     this.newDeptObj = { ...dept };
@@ -60,7 +61,7 @@ export class Department implements OnInit {
   onDelete(id: number) {
     if (!confirm('Are you sure?')) return;
 
-    this.masterservice.deleteDepartment(id).subscribe({
+    this.masterService.deleteDepartment(id).subscribe({
       next: () => {
         alert('Department deleted successfully');
         this.getAllDepartments();

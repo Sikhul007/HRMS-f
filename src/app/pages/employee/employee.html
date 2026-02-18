@@ -1,0 +1,111 @@
+<div class="container">
+  <h2>{{ editId ? 'Edit Employee' : 'Add Employee' }}</h2>
+
+  <!-- FORM -->
+  <form (ngSubmit)="onSubmit()" class="card">
+    <input
+      [(ngModel)]="newEmpObj.employeeCode"
+      name="employeeCode"
+      placeholder="Employee Code"
+      required
+    />
+    <input [(ngModel)]="newEmpObj.firstName" name="firstName" placeholder="First Name" required />
+    <input [(ngModel)]="newEmpObj.lastName" name="lastName" placeholder="Last Name" required />
+    <input [(ngModel)]="newEmpObj.email" name="email" placeholder="Email" />
+    <input [(ngModel)]="newEmpObj.phone" name="phone" placeholder="Phone" />
+
+    <select [(ngModel)]="newEmpObj.departmentId" name="departmentId" required>
+      <option value="">Select Department</option>
+      <option *ngFor="let dept of deptList()" [value]="dept.id">
+        {{ dept.name }}
+      </option>
+    </select>
+
+    <input [(ngModel)]="newEmpObj.position" name="position" placeholder="Position" />
+    <input
+      [(ngModel)]="newEmpObj.accountNumber"
+      name="accountNumber"
+      placeholder="Account Number"
+    />
+
+    <select [(ngModel)]="newEmpObj.employmentStatus" name="employmentStatus">
+      <option [value]="1">Active</option>
+      <option [value]="2">Inactive</option>
+    </select>
+
+    <input type="date" [(ngModel)]="newEmpObj.joiningDate" name="joiningDate" />
+
+    <button type="submit">
+      {{ editId ? 'Update' : 'Create' }}
+    </button>
+
+    <button type="button" (click)="resetForm()">Clear</button>
+  </form>
+
+  <hr />
+
+  <h2>Employee List</h2>
+
+  <!-- FILTER -->
+  <div class="filters">
+    <input [(ngModel)]="query.Search" placeholder="Search..." />
+
+    <select [(ngModel)]="query.DepartmentId">
+      <option [ngValue]="null">All Departments</option>
+      <option *ngFor="let dept of deptList()" [ngValue]="dept.id">
+        {{ dept.name }}
+      </option>
+    </select>
+
+    <select [(ngModel)]="query.Status">
+      <option [ngValue]="null">All Status</option>
+      <option [ngValue]="1">Active</option>
+      <option [ngValue]="2">Inactive</option>
+    </select>
+
+    <button (click)="onSearch()">Search</button>
+  </div>
+
+  <!-- TABLE -->
+  <table *ngIf="empList().length > 0">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let emp of empList()">
+        <td>{{ emp.employeeCode }}</td>
+        <td>{{ emp.fullName }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.departmentName }}</td>
+        <td>
+          {{ emp.employmentStatus === 1 ? 'Active' : 'Inactive' }}
+        </td>
+        <td>
+          <button (click)="onEdit(emp)">Edit</button>
+          <button (click)="onDelete(emp.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PAGINATION -->
+  <div *ngIf="totalPages > 1">
+    <button [disabled]="query.PageNumber === 1" (click)="changePage(query.PageNumber - 1)">
+      Previous
+    </button>
+
+    Page {{ query.PageNumber }} of {{ totalPages }}
+
+    <button [disabled]="query.PageNumber === totalPages" (click)="changePage(query.PageNumber + 1)">
+      Next
+    </button>
+  </div>
+</div>

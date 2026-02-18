@@ -2,20 +2,24 @@ import { Routes } from '@angular/router';
 import { Login } from './pages/login/login';
 import { Header } from './pages/header/header';
 import { Dashboard } from './pages/dashboard/dashboard';
-import { EmployeeList } from './pages/employee-list/employee-list';
-import { EmployeeForm } from './pages/employee-form/employee-form';
 import { Department } from './pages/department/department';
+import { Employee } from './pages/employee/employee';
 
 export const routes: Routes = [
+  // 🔹 Default
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
   },
+
+  // 🔹 Auth
   {
     path: 'login',
     component: Login,
   },
+
+  // 🔹 App layout
   {
     path: '',
     component: Header,
@@ -24,22 +28,30 @@ export const routes: Routes = [
         path: 'dashboard',
         component: Dashboard,
       },
-      {
-        path: 'new-employees',
-        component: EmployeeForm,
-      },
+      // Employees
       {
         path: 'employees',
-        component: EmployeeList,
+        component: Employee,
       },
+      // Departments
       {
         path: 'departments',
         component: Department,
       },
       {
-        path: 'new-department',
+        path: 'departments/new',
+        component: Department,
+      },
+      {
+        path: 'departments/edit/:id',
         component: Department,
       },
     ],
+  },
+
+  // 🔹 Fallback
+  {
+    path: '**',
+    redirectTo: 'login',
   },
 ];

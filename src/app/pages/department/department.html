@@ -25,13 +25,13 @@
 
     <div class="actions">
       <button type="submit">
-        {{ editId ? 'Update Department' : 'Add Department' }}
+        {{ editId !== null ? 'Update Department' : 'Add Department' }}
       </button>
       <button type="button" class="secondary" (click)="resetForm()">Clear</button>
     </div>
   </form>
 
-  <table>
+  <table *ngIf="deptList().length > 0; else noData">
     <thead>
       <tr>
         <th>Name</th>
@@ -39,8 +39,9 @@
         <th width="160">Action</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr *ngFor="let dept of deptList">
+      <tr *ngFor="let dept of deptList()">
         <td>{{ dept.name }}</td>
         <td>{{ dept.description }}</td>
         <td>
@@ -50,4 +51,8 @@
       </tr>
     </tbody>
   </table>
+
+  <ng-template #noData>
+    <p>No departments found.</p>
+  </ng-template>
 </div>
