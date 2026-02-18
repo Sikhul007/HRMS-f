@@ -1,0 +1,207 @@
+/* ===== Global ===== */
+.container {
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 24px;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f5f7fb;
+}
+
+/* ===== Headings ===== */
+h2 {
+  margin-bottom: 16px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* ===== Card ===== */
+.card {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+  border: 1px solid #eef1f6;
+}
+
+/* ===== Inputs & Select ===== */
+input,
+select {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* ===== Buttons ===== */
+button {
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+/* Primary */
+button[type='submit'] {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+}
+
+button[type='submit']:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(99, 102, 241, 0.3);
+}
+
+/* Secondary */
+button[type='button'] {
+  background: #f1f5f9;
+  color: #1f2937;
+}
+
+button[type='button']:hover {
+  background: #e2e8f0;
+}
+
+/* Table action buttons */
+td button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* Edit */
+td button:first-child {
+  background-color: #f59e0b;
+  color: white;
+}
+
+td button:first-child:hover {
+  background-color: #d97706;
+}
+
+/* Delete */
+td button:last-child {
+  background-color: #ef4444;
+  color: white;
+}
+
+td button:last-child:hover {
+  background-color: #dc2626;
+}
+
+/* ===== Divider ===== */
+hr {
+  margin: 30px 0;
+  border: none;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+/* ===== Filters ===== */
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.filters input,
+.filters select {
+  max-width: 220px;
+}
+
+.filters button {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.filters button:hover {
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.35);
+}
+
+/* ===== Table ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+thead {
+  background: #f8fafc;
+}
+
+th {
+  padding: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+td {
+  padding: 14px;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+tbody tr {
+  border-bottom: 1px solid #eef1f6;
+}
+
+tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* ===== Status ===== */
+td:nth-child(5) {
+  font-weight: 600;
+}
+
+td:nth-child(5)::before {
+  content: '● ';
+  font-size: 12px;
+}
+
+td:nth-child(5):contains('Active') {
+  color: #16a34a;
+}
+
+/* ===== Pagination ===== */
+div[ngif] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+div[ngif] button {
+  background: #6366f1;
+  color: white;
+}
+
+div[ngif] button:disabled {
+  background: #c7d2fe;
+  cursor: not-allowed;
+}

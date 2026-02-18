@@ -19,15 +19,17 @@ export class Login {
   router = inject(Router);
 
   onLogin() {
-    this.http.post('https://localhost:7020/api/Auth/login', this.loginObj).subscribe(
-      (response: any) => {
-        console.log('Login successful:', response);
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/dashboard']);
+    this.http.post<any>('https://localhost:7020/api/Auth/login', this.loginObj).subscribe({
+      next: (response) => {
+        if (response?.token) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('expiration', response.expiration);
+          this.router.navigate(['/dashboard']);
+        }
       },
-      (error) => {
-        console.error('Login failed:', error);
+      error: () => {
+        alert('Invalid username or password');
       },
-    );
+    });
   }
 }

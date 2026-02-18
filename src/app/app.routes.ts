@@ -6,6 +6,7 @@ import { Department } from './pages/department/department';
 import { Employee } from './pages/employee/employee';
 import { Salary } from './pages/salary/salary';
 import { Payroll } from './pages/payroll/payroll';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   // 🔹 Default
@@ -25,42 +26,13 @@ export const routes: Routes = [
   {
     path: '',
     component: Header,
+    canActivate: [authGuard],
     children: [
-      {
-        path: 'dashboard',
-        component: Dashboard,
-      },
-      // Employees
-      {
-        path: 'employees',
-        component: Employee,
-      },
-
-      // Salary
-      {
-        path: 'salary',
-        component: Salary,
-      },
-
-      // paytoll
-      {
-        path: 'payroll',
-        component: Payroll,
-      },
-
-      // Departments
-      {
-        path: 'departments',
-        component: Department,
-      },
-      {
-        path: 'departments/new',
-        component: Department,
-      },
-      {
-        path: 'departments/edit/:id',
-        component: Department,
-      },
+      { path: 'dashboard', component: Dashboard },
+      { path: 'employees', component: Employee },
+      { path: 'salary', component: Salary },
+      { path: 'payroll', component: Payroll },
+      { path: 'departments', component: Department },
     ],
   },
 

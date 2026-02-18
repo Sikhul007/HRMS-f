@@ -78,6 +78,26 @@ export class Employee implements OnInit {
     return Math.ceil(this.totalCount() / this.query.PageSize);
   }
 
+  // onSubmit() {
+  //   if (this.editId !== null) {
+  //     this.employeeService.updateEmployee(this.editId, this.newEmpObj).subscribe({
+  //       next: () => {
+  //         alert('Employee updated successfully');
+  //         this.resetForm();
+  //         this.getAllEmployees();
+  //       },
+  //     });
+  //   } else {
+  //     this.employeeService.addEmployee(this.newEmpObj).subscribe({
+  //       next: () => {
+  //         alert('Employee created successfully');
+  //         this.resetForm();
+  //         this.getAllEmployees();
+  //       },
+  //     });
+  //   }
+  // }
+
   onSubmit() {
     if (this.editId !== null) {
       this.employeeService.updateEmployee(this.editId, this.newEmpObj).subscribe({
@@ -85,6 +105,9 @@ export class Employee implements OnInit {
           alert('Employee updated successfully');
           this.resetForm();
           this.getAllEmployees();
+        },
+        error: (err) => {
+          this.showValidationErrors(err);
         },
       });
     } else {
@@ -94,15 +117,34 @@ export class Employee implements OnInit {
           this.resetForm();
           this.getAllEmployees();
         },
+        error: (err) => {
+          this.showValidationErrors(err);
+        },
       });
     }
   }
 
+  // onEdit(emp: EmployeeListModel) {
+  //   this.employeeService.getById(emp.id).subscribe({
+  //     next: (res) => {
+  //       this.editId = res.id;
+  //       this.newEmpObj = res;
+  //     },
+  //   });
+  // }
   onEdit(emp: EmployeeListModel) {
     this.employeeService.getById(emp.id).subscribe({
       next: (res) => {
         this.editId = res.id;
-        this.newEmpObj = res;
+
+        // Split full name into first & last name
+        const nameParts = res.fullName?.trim().split(' ') || [];
+
+        this.newEmpObj = {
+          ...res,
+          firstName: nameParts[0] || '',
+          lastName: nameParts.slice(1).join(' ') || '',
+        };
       },
     });
   }
@@ -121,5 +163,23 @@ export class Employee implements OnInit {
   resetForm() {
     this.newEmpObj = new EmployeeModel();
     this.editId = null;
+  }
+
+  showValidationErrors(err: any) {
+    if (err?.error?.errors) {
+      const errors = err.error.errors;
+
+      const messages: string[] = [];
+
+      for (const key in errors) {
+        if (errors[key]?.length) {
+          messages.push(errors[key][0]);
+        }
+      }
+
+      alert(messages.join('\n'));
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
   }
 }

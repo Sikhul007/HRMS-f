@@ -1,80 +1,116 @@
-<div class="container">
-  <h2>Payroll Management</h2>
+<div class="container payroll-container">
+  <h2 class="page-title">Payroll Management</h2>
 
   <!-- Generate Section -->
-  <div class="card">
-    <input type="number" [(ngModel)]="month" min="1" max="12" />
-    <input type="number" [(ngModel)]="year" />
+  <div class="card payroll-card">
+    <div class="row g-3 align-items-end">
+      <!-- Month -->
+      <div class="col-md-3">
+        <label>Month</label>
+        <select class="form-select" [(ngModel)]="month">
+          <option value="">Select Month</option>
+          <option [value]="1">January</option>
+          <option [value]="2">February</option>
+          <option [value]="3">March</option>
+          <option [value]="4">April</option>
+          <option [value]="5">May</option>
+          <option [value]="6">June</option>
+          <option [value]="7">July</option>
+          <option [value]="8">August</option>
+          <option [value]="9">September</option>
+          <option [value]="10">October</option>
+          <option [value]="11">November</option>
+          <option [value]="12">December</option>
+        </select>
+      </div>
 
-    <button (click)="generatePayroll()">Generate Payroll</button>
-    <button (click)="loadReport()">View Report</button>
+      <!-- Year -->
+      <div class="col-md-2">
+        <label>Year</label>
+        <input type="number" class="form-control" [(ngModel)]="year" placeholder="YYYY" />
+      </div>
+
+      <!-- Buttons -->
+      <div class="col-md-4">
+        <button class="btn btn-primary me-2" (click)="generatePayroll()">Generate Payroll</button>
+        <button class="btn btn-outline-secondary" (click)="loadReport()">View Report</button>
+      </div>
+    </div>
   </div>
 
   <!-- Monthly Report -->
-  <div *ngIf="payrollReport()" class="card">
-    <h3>Payroll Report - {{ payrollReport()?.month }}/{{ payrollReport()?.year }}</h3>
+  <div *ngIf="payrollReport()" class="card payroll-card">
+    <h5 class="mb-3">Payroll Report – {{ payrollReport()?.month }}/{{ payrollReport()?.year }}</h5>
 
-    <p>Total Employees: {{ payrollReport()?.totalEmployees }}</p>
-    <p>Total Tax: {{ payrollReport()?.totalTax }}</p>
-    <p>
-      <strong>Total Net Salary: {{ payrollReport()?.totalNetSalary }}</strong>
-    </p>
+    <div class="summary">
+      <span>Total Employees: {{ payrollReport()?.totalEmployees }}</span>
+      <span>Total Tax: {{ payrollReport()?.totalTax }}</span>
+      <span class="highlight"> Net Salary: {{ payrollReport()?.totalNetSalary }} </span>
+    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Employee</th>
-          <th>Basic</th>
-          <th>Allowance</th>
-          <th>Bonus</th>
-          <th>Deduction</th>
-          <th>Tax</th>
-          <th>Net Salary</th>
-        </tr>
-      </thead>
+    <div class="table-responsive">
+      <table class="table table-sm payroll-table">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Basic</th>
+            <th>Allowance</th>
+            <th>Bonus</th>
+            <th>Deduction</th>
+            <th>Tax</th>
+            <th>Net Salary</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr *ngFor="let p of payrollReport()?.payrolls">
-          <td>{{ p.employeeName }}</td>
-          <td>{{ p.basicSalary }}</td>
-          <td>{{ p.allowance }}</td>
-          <td>{{ p.bonus }}</td>
-          <td>{{ p.deduction }}</td>
-          <td>{{ p.tax }}</td>
-          <td>
-            <strong>{{ p.netSalary }}</strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody>
+          <tr *ngFor="let p of payrollReport()?.payrolls">
+            <td>{{ p.employeeName }}</td>
+            <td>{{ p.basicSalary }}</td>
+            <td>{{ p.allowance }}</td>
+            <td>{{ p.bonus }}</td>
+            <td>{{ p.deduction }}</td>
+            <td>{{ p.tax }}</td>
+            <td class="fw-semibold">{{ p.netSalary }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <hr />
 
   <!-- Employee Slip -->
-  <div class="card">
-    <h3>Employee Salary Slip</h3>
+  <div class="card payroll-card">
+    <h5 class="mb-3">Employee Salary Slip</h5>
 
-    <div class="row">
-      <!-- Employee -->
-      <select [(ngModel)]="selectedEmployeeId">
-        <option value="">Select Employee</option>
-        <option *ngFor="let emp of employeeList()" [value]="emp.id">
-          {{ emp.fullName }}
-        </option>
-      </select>
+    <div class="row g-3 align-items-end">
+      <div class="col-md-4">
+        <label>Employee</label>
+        <select class="form-select" [(ngModel)]="selectedEmployeeId">
+          <option value="">Select Employee</option>
+          <option *ngFor="let emp of employeeList()" [value]="emp.id">
+            {{ emp.fullName }}
+          </option>
+        </select>
+      </div>
 
-      <!-- Month -->
-      <select [(ngModel)]="slipMonth">
-        <option *ngFor="let m of months" [value]="m.value">
-          {{ m.name }}
-        </option>
-      </select>
+      <div class="col-md-2">
+        <label>Month</label>
+        <select class="form-select" [(ngModel)]="slipMonth">
+          <option *ngFor="let m of months" [value]="m.value">
+            {{ m.name }}
+          </option>
+        </select>
+      </div>
 
-      <!-- Year -->
-      <input type="number" [(ngModel)]="slipYear" placeholder="Year" />
+      <div class="col-md-2">
+        <label>Year</label>
+        <input type="number" class="form-control" [(ngModel)]="slipYear" />
+      </div>
 
-      <button (click)="loadEmployeeSlip()">View Slip</button>
+      <div class="col-md-2">
+        <button class="btn btn-success w-100" (click)="loadEmployeeSlip()">View Slip</button>
+      </div>
     </div>
 
     <div *ngIf="employeeSlip()" class="slip-box">
@@ -83,9 +119,7 @@
       <p>Gross Salary: {{ employeeSlip()?.grossSalary }}</p>
       <p>Deduction: {{ employeeSlip()?.deduction }}</p>
       <p>Tax: {{ employeeSlip()?.tax }}</p>
-      <p>
-        <strong>Net Salary: {{ employeeSlip()?.netSalary }}</strong>
-      </p>
+      <p class="net-salary">Net Salary: {{ employeeSlip()?.netSalary }}</p>
     </div>
   </div>
 </div>

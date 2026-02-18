@@ -1,9 +1,11 @@
-<div class="container">
-  <h2>Salary Management</h2>
+<div class="container salary-container">
+  <h2 class="page-title">Salary Management</h2>
 
   <!-- SELECT EMPLOYEE -->
-  <div class="card">
+  <div class="card salary-card">
+    <label>Select Employee</label>
     <select
+      class="form-select"
       [(ngModel)]="newSalary.employeeId"
       name="employeeId"
       (change)="onEmployeeChange()"
@@ -17,70 +19,114 @@
   </div>
 
   <!-- CURRENT SALARY -->
-  <div *ngIf="currentSalary()" class="card">
-    <h3>Current Salary</h3>
-    <p>Basic: {{ currentSalary()?.basicSalary }}</p>
-    <p>Allowance: {{ currentSalary()?.allowance }}</p>
-    <p>Bonus: {{ currentSalary()?.bonus }}</p>
-    <p>Deduction: {{ currentSalary()?.deduction }}</p>
-    <p>
-      <strong>Net Salary: {{ currentSalary()?.totalSalary }}</strong>
-    </p>
+  <div *ngIf="currentSalary()" class="card salary-card">
+    <h5 class="section-title">Current Salary</h5>
+
+    <div class="salary-summary">
+      <div>
+        <span>Basic</span><strong>{{ currentSalary()?.basicSalary }}</strong>
+      </div>
+      <div>
+        <span>Allowance</span><strong>{{ currentSalary()?.allowance }}</strong>
+      </div>
+      <div>
+        <span>Bonus</span><strong>{{ currentSalary()?.bonus }}</strong>
+      </div>
+      <div>
+        <span>Deduction</span><strong>{{ currentSalary()?.deduction }}</strong>
+      </div>
+      <div class="net">
+        <span>Net Salary</span>
+        <strong>{{ currentSalary()?.totalSalary }}</strong>
+      </div>
+    </div>
   </div>
 
   <!-- CREATE SALARY -->
-  <form (ngSubmit)="onSubmit()" class="card">
-    <input
-      type="number"
-      [(ngModel)]="newSalary.basicSalary"
-      name="basicSalary"
-      placeholder="Basic Salary"
-      required
-    />
-    <input
-      type="number"
-      [(ngModel)]="newSalary.allowance"
-      name="allowance"
-      placeholder="Allowance"
-    />
-    <input type="number" [(ngModel)]="newSalary.bonus" name="bonus" placeholder="Bonus" />
-    <input
-      type="number"
-      [(ngModel)]="newSalary.deduction"
-      name="deduction"
-      placeholder="Deduction"
-    />
+  <form (ngSubmit)="onSubmit()" class="card salary-card">
+    <h5 class="section-title">Add / Update Salary</h5>
 
-    <input type="date" [(ngModel)]="newSalary.effectiveFrom" name="effectiveFrom" required />
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label>Basic Salary</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="newSalary.basicSalary"
+          name="basicSalary"
+          required
+        />
+      </div>
 
-    <button type="submit">Add Salary</button>
+      <div class="col-md-3">
+        <label>Allowance</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="newSalary.allowance"
+          name="allowance"
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label>Bonus</label>
+        <input type="number" class="form-control" [(ngModel)]="newSalary.bonus" name="bonus" />
+      </div>
+
+      <div class="col-md-3">
+        <label>Deduction</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="newSalary.deduction"
+          name="deduction"
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label>Effective From</label>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="newSalary.effectiveFrom"
+          name="effectiveFrom"
+          required
+        />
+      </div>
+
+      <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">Add Salary</button>
+      </div>
+    </div>
   </form>
 
   <!-- SALARY HISTORY -->
-  <div *ngIf="salaryHistory().length > 0" class="card">
-    <h3>Salary History</h3>
+  <div *ngIf="salaryHistory().length > 0" class="card salary-card">
+    <h5 class="section-title">Salary History</h5>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Effective From</th>
-          <th>Basic</th>
-          <th>Allowance</th>
-          <th>Bonus</th>
-          <th>Deduction</th>
-          <th>Net</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let s of salaryHistory()">
-          <td>{{ s.effectiveFrom | date }}</td>
-          <td>{{ s.basicSalary }}</td>
-          <td>{{ s.allowance }}</td>
-          <td>{{ s.bonus }}</td>
-          <td>{{ s.deduction }}</td>
-          <td>{{ s.totalSalary }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-sm salary-table">
+        <thead>
+          <tr>
+            <th>Effective From</th>
+            <th>Basic</th>
+            <th>Allowance</th>
+            <th>Bonus</th>
+            <th>Deduction</th>
+            <th>Net</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of salaryHistory()">
+            <td>{{ s.effectiveFrom | date }}</td>
+            <td>{{ s.basicSalary }}</td>
+            <td>{{ s.allowance }}</td>
+            <td>{{ s.bonus }}</td>
+            <td>{{ s.deduction }}</td>
+            <td class="fw-semibold">{{ s.totalSalary }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -1,0 +1,87 @@
+.salary-container {
+  max-width: 1200px;
+  margin: 25px auto;
+  font-size: 14px;
+}
+
+.page-title {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* Card */
+.salary-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Section titles */
+.section-title {
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+/* Labels */
+label {
+  font-size: 12px;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+/* Current salary summary */
+.salary-summary {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+.salary-summary div {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.salary-summary span {
+  display: block;
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.salary-summary strong {
+  font-size: 15px;
+  color: #212529;
+}
+
+.salary-summary .net {
+  background: #eaf4ff;
+}
+
+.salary-summary .net strong {
+  color: #0d6efd;
+}
+
+/* Table */
+.salary-table thead {
+  background-color: #f8f9fa;
+}
+
+.salary-table th {
+  font-size: 13px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.salary-table td {
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.salary-table tbody tr:hover {
+  background-color: #f9fbfd;
+}

@@ -1,0 +1,58 @@
+body {
+  background-color: #f5f6fa;
+  font-size: 14px;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #ffffff;
+  min-height: calc(100vh - 56px);
+  padding-top: 20px;
+  border-right: 1px solid #e5e5e5;
+}
+
+.sidebar .nav-link {
+  color: #555;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #f1f3f6;
+}
+
+.sidebar .nav-link.active {
+  background-color: #0d6efd;
+  color: #ffffff;
+}
+
+/* Content */
+.content {
+  padding: 25px;
+}
+
+/* Stat cards */
+.stat-card {
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h6 {
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+
+.stat-card h3 {
+  margin: 0;
+  color: #212529;
+}
+
+/* Table card */
+.card {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}

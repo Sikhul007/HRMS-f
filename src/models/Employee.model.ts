@@ -3,6 +3,7 @@ export class EmployeeModel {
   employeeCode: string;
   firstName: string;
   lastName: string;
+  fullName?: string;
   email: string;
   phone: string;
   departmentId: number;
@@ -16,6 +17,7 @@ export class EmployeeModel {
     this.employeeCode = '';
     this.firstName = '';
     this.lastName = '';
+    this.fullName = '';
     this.email = '';
     this.phone = '';
     this.departmentId = 0;

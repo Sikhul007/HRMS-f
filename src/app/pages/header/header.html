@@ -44,6 +44,14 @@
           <span *ngIf="!isCollapsed">Payroll</span>
         </a>
       </li>
+
+      <!-- Logout -->
+      <li class="nav-item mt-auto">
+        <a (click)="logout()" class="nav-link logout-link">
+          <i class="fas fa-sign-out-alt"></i>
+          <span *ngIf="!isCollapsed">Logout</span>
+        </a>
+      </li>
     </ul>
   </aside>
 
