@@ -23,13 +23,6 @@
         </a>
       </li>
 
-      <li class="nav-item">
-        <a routerLink="/new-employees" routerLinkActive="active" class="nav-link">
-          <i class="fas fa-user-plus"></i>
-          <span *ngIf="!isCollapsed">Add Employee</span>
-        </a>
-      </li>
-
       <!-- Departments -->
       <li class="nav-item">
         <a routerLink="/departments" routerLinkActive="active" class="nav-link">
@@ -38,27 +31,17 @@
         </a>
       </li>
 
-      <!-- Reports -->
       <li class="nav-item">
-        <a routerLink="/reports" routerLinkActive="active" class="nav-link">
-          <i class="fas fa-chart-line"></i>
-          <span *ngIf="!isCollapsed">Reports</span>
+        <a routerLink="/salary" routerLinkActive="active" class="nav-link">
+          <i class="fas fa-money-bill"></i>
+          <span *ngIf="!isCollapsed">Salary</span>
         </a>
       </li>
 
-      <!-- Settings -->
       <li class="nav-item">
-        <a routerLink="/settings" routerLinkActive="active" class="nav-link">
-          <i class="fas fa-cog"></i>
-          <span *ngIf="!isCollapsed">Settings</span>
-        </a>
-      </li>
-
-      <!-- Logout -->
-      <li class="nav-item mt-auto">
-        <a class="nav-link text-danger">
-          <i class="fas fa-sign-out-alt"></i>
-          <span *ngIf="!isCollapsed">Logout</span>
+        <a routerLink="/payroll" routerLinkActive="active" class="nav-link">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span *ngIf="!isCollapsed">Payroll</span>
         </a>
       </li>
     </ul>

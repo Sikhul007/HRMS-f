@@ -1,0 +1,91 @@
+<div class="container">
+  <h2>Payroll Management</h2>
+
+  <!-- Generate Section -->
+  <div class="card">
+    <input type="number" [(ngModel)]="month" min="1" max="12" />
+    <input type="number" [(ngModel)]="year" />
+
+    <button (click)="generatePayroll()">Generate Payroll</button>
+    <button (click)="loadReport()">View Report</button>
+  </div>
+
+  <!-- Monthly Report -->
+  <div *ngIf="payrollReport()" class="card">
+    <h3>Payroll Report - {{ payrollReport()?.month }}/{{ payrollReport()?.year }}</h3>
+
+    <p>Total Employees: {{ payrollReport()?.totalEmployees }}</p>
+    <p>Total Tax: {{ payrollReport()?.totalTax }}</p>
+    <p>
+      <strong>Total Net Salary: {{ payrollReport()?.totalNetSalary }}</strong>
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Basic</th>
+          <th>Allowance</th>
+          <th>Bonus</th>
+          <th>Deduction</th>
+          <th>Tax</th>
+          <th>Net Salary</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let p of payrollReport()?.payrolls">
+          <td>{{ p.employeeName }}</td>
+          <td>{{ p.basicSalary }}</td>
+          <td>{{ p.allowance }}</td>
+          <td>{{ p.bonus }}</td>
+          <td>{{ p.deduction }}</td>
+          <td>{{ p.tax }}</td>
+          <td>
+            <strong>{{ p.netSalary }}</strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr />
+
+  <!-- Employee Slip -->
+  <div class="card">
+    <h3>Employee Salary Slip</h3>
+
+    <div class="row">
+      <!-- Employee -->
+      <select [(ngModel)]="selectedEmployeeId">
+        <option value="">Select Employee</option>
+        <option *ngFor="let emp of employeeList()" [value]="emp.id">
+          {{ emp.fullName }}
+        </option>
+      </select>
+
+      <!-- Month -->
+      <select [(ngModel)]="slipMonth">
+        <option *ngFor="let m of months" [value]="m.value">
+          {{ m.name }}
+        </option>
+      </select>
+
+      <!-- Year -->
+      <input type="number" [(ngModel)]="slipYear" placeholder="Year" />
+
+      <button (click)="loadEmployeeSlip()">View Slip</button>
+    </div>
+
+    <div *ngIf="employeeSlip()" class="slip-box">
+      <h4>{{ employeeSlip()?.employee }}</h4>
+      <p>Month: {{ employeeSlip()?.month }}/{{ employeeSlip()?.year }}</p>
+      <p>Gross Salary: {{ employeeSlip()?.grossSalary }}</p>
+      <p>Deduction: {{ employeeSlip()?.deduction }}</p>
+      <p>Tax: {{ employeeSlip()?.tax }}</p>
+      <p>
+        <strong>Net Salary: {{ employeeSlip()?.netSalary }}</strong>
+      </p>
+    </div>
+  </div>
+</div>

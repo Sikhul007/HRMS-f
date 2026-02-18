@@ -4,6 +4,8 @@ import { Header } from './pages/header/header';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Department } from './pages/department/department';
 import { Employee } from './pages/employee/employee';
+import { Salary } from './pages/salary/salary';
+import { Payroll } from './pages/payroll/payroll';
 
 export const routes: Routes = [
   // 🔹 Default
@@ -33,6 +35,19 @@ export const routes: Routes = [
         path: 'employees',
         component: Employee,
       },
+
+      // Salary
+      {
+        path: 'salary',
+        component: Salary,
+      },
+
+      // paytoll
+      {
+        path: 'payroll',
+        component: Payroll,
+      },
+
       // Departments
       {
         path: 'departments',
